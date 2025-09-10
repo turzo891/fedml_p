@@ -5,7 +5,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torchvision
 import torchvision.transforms as T
-from torch.utils.data import DataLoader, Subset
+from torch.utils.data import DataLoader, Subset, Dataset
 import numpy as np
 
 from client_BIAS import BiasTracker
@@ -34,6 +34,25 @@ class SimpleCNN(nn.Module):
 # ----------------------------------------------------------
 # 6️⃣2  Generate a *biased* MNIST split (digit 0 vs 1)
 # ----------------------------------------------------------
+class BiasedClientDataset(Dataset):
+    """Wrap MNIST to return (image, binary_label, sensitive_group)."""
+
+    def __init__(self, base_ds, indices, labels, sensitive):
+        self.base_ds = base_ds
+        self.indices = np.array(indices)
+        self.labels = labels
+        self.sensitive = sensitive
+
+    def __len__(self):
+        return len(self.indices)
+
+    def __getitem__(self, i):
+        idx = int(self.indices[i])
+        x, _ = self.base_ds[idx]
+        y = self.labels[idx].item() if hasattr(self.labels[idx], 'item') else int(self.labels[idx])
+        g = self.sensitive[idx].item() if hasattr(self.sensitive[idx], 'item') else int(self.sensitive[idx])
+        return x, torch.tensor(y, dtype=torch.long), torch.tensor(g, dtype=torch.long)
+
 def load_biased_mnist(num_clients=5, samples_per_client=1000, seed=42):
     transform = T.Compose([T.ToTensor()])
     dataset = torchvision.datasets.MNIST(root="./data",
@@ -42,12 +61,9 @@ def load_biased_mnist(num_clients=5, samples_per_client=1000, seed=42):
                                          transform=transform)
 
     rng = np.random.default_rng(seed)
-    # We encode a binary label: 0 if digit==0 else 1
+    # Binary label: 0 if digit==0 else 1
     labels = (dataset.targets != 0).int()
-
-    # Inject a synthetic sensitive attribute:
-    #  - group 0: all digits 0
-    #  - group 1: all digits 1
+    # Synthetic sensitive attribute identical to label (for demo)
     sensitive = labels.clone()
 
     # Shuffle and split
@@ -56,10 +72,8 @@ def load_biased_mnist(num_clients=5, samples_per_client=1000, seed=42):
 
     clients = []
     for idx in client_indices:
-        subset = Subset(dataset, idx[:samples_per_client])
-        subset.targets = labels[idx[:samples_per_client]]
-        subset.sensitive = sensitive[idx[:samples_per_client]]
-        clients.append(subset)
+        sel = idx[:samples_per_client]
+        clients.append(BiasedClientDataset(dataset, sel, labels, sensitive))
 
     return clients
 
@@ -110,41 +124,34 @@ def main(rounds=10, num_clients=5):
     # Build Flower clients
     client_objs = build_clients(clients, device, policy)
 
+    # Provide per-round fit config (e.g., local epochs)
+    def fit_config_fn(server_round: int):
+        return {"local_epochs": 2}
+
     # Server strategy
     strategy = FedServer(policy=policy,
                          device=device,
                          fraction_fit=1.0,          # use all clients each round
-                         fraction_eval=1.0,
+                         fraction_evaluate=1.0,
                          min_fit_clients=num_clients,
-                         min_eval_clients=num_clients,
+                         min_evaluate_clients=num_clients,
                          min_available_clients=num_clients,
-                         initial_parameters=fl.common.ndarray_to_parameters(
-                             [p.detach().cpu().numpy() for p in SimpleCNN().parameters()]
-                         ),
-                         use_val_loader=True,
-                         val_evaluation_fn=ClientEvaluator()  # optional
+                         on_fit_config_fn=fit_config_fn,
                          )
 
     # Run simulation
     fl.simulation.start_simulation(
-        client_fn=lambda cid: client_objs[cid],   # id → client
+        client_fn=lambda cid: client_objs[int(cid)],   # id → client
         num_clients=num_clients,
+        num_rounds=rounds,
         strategy=strategy,
-        config={"rounds": rounds, "local_epochs": 2}
     )
 
 # ----------------------------------------------------------
 # 6️⃣5  (Optional) Client evaluator – logs bias each round
 # ----------------------------------------------------------
-class ClientEvaluator(fl.server.strategy.EvaluateServerFn):
-    def __init__(self):
-        super().__init__()
-
-    def __call__(self, parameters, config):
-        # This function runs on the *server* to evaluate a model.
-        # We can compute global fairness metrics here if we have
-        # access to a hold‑out fair dataset.
-        return None, 0.0, {}
+class ClientEvaluator:
+    pass
 
 if __name__ == "__main__":
     main(rounds=20, num_clients=5)

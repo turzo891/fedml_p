@@ -24,39 +24,43 @@ class FedServer(fl.server.strategy.FedAvg):
         self.bias_tracker = BiasTracker()
 
     # ---- 5️⃣1  After aggregation hook -----
-    def aggregate_fit(self, rnd: int,
-                      results: list[tuple[fl.common.Peer, fl.common.ModelParameters, float]],
-                      failures: list[BaseException]) -> tuple[fl.common.ModelParameters | None, dict[str,
-fl.common.StrategyEvaluation]]:
+    def aggregate_fit(self, server_round, results, failures):
+        """Aggregate fit results and update λ‑policy using client bias metrics.
+
+        Compatible with Flower 1.x where `results` is a list of
+        (ClientProxy, FitRes) tuples and metrics are in `FitRes.metrics`.
+        """
         # Standard FedAvg aggregation
-        aggregated_params, metrics = super().aggregate_fit(rnd, results, failures)
+        aggregated_params, metrics = super().aggregate_fit(server_round, results, failures)
 
         # ---- 5️⃣2  Compute BIAS stats across clients -----
-        # We ask each client to run its bias_tracker on its local validation set
-        # For demonstration, we emulate this by reading a stored bias file
-        # (clients should store `bias_score.npy` after training)
         bias_scores = []
-        for peer, _, _ in results:
-            # Suppose each peer sends its bias in the `extra` dict
-            bias_scores.append(peer.extra.get("bias_score", 0.0))
+        for _client, fit_res in results:
+            m = getattr(fit_res, "metrics", None) or {}
+            if "bias_score" in m:
+                try:
+                    bias_scores.append(float(m["bias_score"]))
+                except Exception:
+                    pass
 
-        mean_bias = np.mean(bias_scores)
-        print(f"[Server] Round {rnd} mean bias: {mean_bias:.4f}")
+        if bias_scores:
+            mean_bias = float(np.mean(bias_scores))
+            print(f"[Server] Round {server_round} mean bias: {mean_bias:.4f}")
 
-        # ---- 5️⃣3  Update λ‑policy to reduce bias -----
-        # Goal: map current mean bias → λ that improves fairness.
-        # Here we simply train λ to *minimize* the mean bias (MSE loss).
-        # In practice you could use a more sophisticated objective.
-        target = torch.tensor([0.0], device=self.device)          # 0 bias is perfect fairness
-        input_bias = torch.tensor([mean_bias], device=self.device)
-        pred_lambda = self.policy(input_bias)
-        loss = self.loss_fn(pred_lambda, target)
+            # ---- 5️⃣3  Update λ‑policy to reduce bias -----
+            target = torch.tensor([0.0], device=self.device, dtype=torch.float32)  # perfect fairness
+            input_bias = torch.tensor([mean_bias], device=self.device, dtype=torch.float32)
+            self.policy.to(self.device)
+            pred_lambda = self.policy(input_bias)
+            loss = self.loss_fn(pred_lambda, target)
 
-        self.optimizer.zero_grad()
-        loss.backward()
-        self.optimizer.step()
+            self.optimizer.zero_grad()
+            loss.backward()
+            self.optimizer.step()
 
-        print(f"[Server] λ-policy loss: {loss.item():.6f}")
+            print(f"[Server] λ-policy loss: {loss.item():.6f}")
+        else:
+            print(f"[Server] Round {server_round} received no bias metrics")
 
         return aggregated_params, metrics
 
