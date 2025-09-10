@@ -54,26 +54,47 @@ class BiasedClientDataset(Dataset):
         return x, torch.tensor(y, dtype=torch.long), torch.tensor(g, dtype=torch.long)
 
 def load_biased_mnist(num_clients=5, samples_per_client=1000, seed=42):
+    """Create a 0-vs-1 MNIST split and a balanced sensitive attribute.
+
+    - Labels: y=1 for digit==1, else 0 (digit==0)
+    - Sensitive attribute g ~ Bernoulli(p), correlated with y but not identical
+      (p=0.7 if y==1 else p=0.3) so both groups contain both classes.
+    - Each client receives a balanced mix of class 0/1.
+    """
     transform = T.Compose([T.ToTensor()])
-    dataset = torchvision.datasets.MNIST(root="./data",
-                                         train=True,
-                                         download=True,
-                                         transform=transform)
+    ds = torchvision.datasets.MNIST(root="./data", train=True, download=True, transform=transform)
+
+    digits = ds.targets
+    mask01 = (digits == 0) | (digits == 1)
+    idx_all = np.nonzero(mask01.numpy())[0]
+
+    # Build full-length label/sensitive arrays (aligned with original indices)
+    labels_full = torch.zeros_like(digits).int()
+    labels_full[digits == 1] = 1
 
     rng = np.random.default_rng(seed)
-    # Binary label: 0 if digit==0 else 1
-    labels = (dataset.targets != 0).int()
-    # Synthetic sensitive attribute identical to label (for demo)
-    sensitive = labels.clone()
+    sens_np = rng.binomial(1, p=(labels_full.numpy() * 0.4 + 0.3))  # p=0.3 if y=0 else 0.7
+    sensitive_full = torch.from_numpy(sens_np).int()
 
-    # Shuffle and split
-    indices = rng.permutation(len(dataset))
-    client_indices = np.array_split(indices, num_clients)
+    # Separate indices by class for balancing per client
+    idx0 = idx_all[digits[idx_all].numpy() == 0]
+    idx1 = idx_all[digits[idx_all].numpy() == 1]
+    rng.shuffle(idx0)
+    rng.shuffle(idx1)
 
+    # Allocate per-client
+    per_c0 = samples_per_client // 2
+    per_c1 = samples_per_client - per_c0
     clients = []
-    for idx in client_indices:
-        sel = idx[:samples_per_client]
-        clients.append(BiasedClientDataset(dataset, sel, labels, sensitive))
+    ptr0 = ptr1 = 0
+    for _ in range(num_clients):
+        sel0 = idx0[ptr0:ptr0 + per_c0]
+        sel1 = idx1[ptr1:ptr1 + per_c1]
+        ptr0 += per_c0
+        ptr1 += per_c1
+        sel = np.concatenate([sel0, sel1])
+        rng.shuffle(sel)
+        clients.append(BiasedClientDataset(ds, sel, labels_full, sensitive_full))
 
     return clients
 
@@ -115,35 +136,36 @@ def build_clients(clients, device, policy):
 # 6️⃣4  Main experiment
 # ----------------------------------------------------------
 def main(rounds=10, num_clients=5):
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    policy = LambdaPolicy().to(device)
+    # Server on GPU if available; clients run on CPU
+    server_device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    policy = LambdaPolicy().to(server_device)
 
     # Data
     clients = load_biased_mnist(num_clients=num_clients)
 
-    # Build Flower clients
-    client_objs = build_clients(clients, device, policy)
-
-    # Provide per-round fit config (e.g., local epochs)
-    def fit_config_fn(server_round: int):
-        return {"local_epochs": 2}
+    # Build Flower clients (CPU only; no policy object to avoid GPU serialization)
+    client_objs = build_clients(clients, torch.device("cpu"), policy=None)
 
     # Server strategy
     strategy = FedServer(policy=policy,
-                         device=device,
-                         fraction_fit=1.0,          # use all clients each round
-                         fraction_evaluate=1.0,
+                         device=server_device,
+                         fraction_fit=1.0,          # prefer using all clients each round
                          min_fit_clients=num_clients,
-                         min_evaluate_clients=num_clients,
                          min_available_clients=num_clients,
-                         on_fit_config_fn=fit_config_fn,
                          )
+
+    # Provide per-round fit config including the server-computed λ
+    def fit_config_fn(server_round: int):
+        return {"local_epochs": 2, "lambda": float(getattr(strategy, "current_lambda", 1.0))}
+
+    # Attach config function after instantiation for compatibility
+    strategy.on_fit_config_fn = fit_config_fn
 
     # Run simulation
     fl.simulation.start_simulation(
-        client_fn=lambda cid: client_objs[int(cid)],   # id → client
+        client_fn=lambda cid: client_objs[int(cid)].to_client(),   # return Client, not NumPyClient
         num_clients=num_clients,
-        num_rounds=rounds,
+        config=fl.server.ServerConfig(num_rounds=rounds),
         strategy=strategy,
     )
 

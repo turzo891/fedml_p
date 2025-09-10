@@ -12,7 +12,7 @@ class FlowerClient(fl.client.NumPyClient):
                  train_loader,
                  val_loader,
                  device: torch.device,
-                 policy: LambdaPolicy,
+                 policy: LambdaPolicy | None,
                  bias_tracker: BiasTracker):
         self.model = model
         self.train_loader = train_loader
@@ -70,9 +70,12 @@ class FlowerClient(fl.client.NumPyClient):
         self.set_parameters(parameters)
         self.model.to(self.device)
 
-        # Compute bias on validation set to derive λ
+        # Compute bias on validation set
         bias = self.bias_tracker.compute(self.model, self.val_loader, self.device)
-        lam = self._compute_lambda(bias)
+        # Use λ provided by server (preferred), else local policy (if any), else 1.0
+        lam = float(config.get("lambda", 1.0)) if isinstance(config, dict) else 1.0
+        if (not isinstance(config, dict) or "lambda" not in config) and self.policy is not None:
+            lam = self._compute_lambda(bias)
 
         # Local training
         self.model.train()

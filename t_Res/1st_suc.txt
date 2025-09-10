@@ -1,0 +1,712 @@
+(.venv) PS C:\Users\sidha\Downloads\FedML_P> python run_fed.py
+WARNING :   DEPRECATED FEATURE: flwr.simulation.start_simulation() is deprecated.
+        Instead, use the `flwr run` CLI command to start a local simulation in your Flower app, as shown for example below:
+
+                $ flwr new  # Create a new Flower app from a template
+
+                $ flwr run  # Run the Flower app in Simulation Mode
+
+        Using `start_simulation()` is deprecated.
+
+            This is a deprecated feature. It will be removed
+            entirely in future versions of Flower.
+        
+INFO :      Starting Flower simulation, config: num_rounds=20, no round_timeout
+2025-09-11 04:30:46,100 INFO worker.py:1771 -- Started a local Ray instance.
+INFO :      Flower VCE: Ray initialized with resources: {'accelerator_type:G': 1.0, 'node:__internal_head__': 1.0, 'CPU': 16.0, 'memory': 3504677684.0, 'node:127.0.0.1': 1.0, 'object_store_memory': 1752338841.0, 'GPU': 1.0}
+INFO :      Optimize your simulation with Flower VCE: https://flower.ai/docs/framework/how-to-run-simulations.html
+INFO :      No `client_resources` specified. Using minimal resources for clients.
+INFO :      Flower VCE: Resources for each Virtual Client: {'num_cpus': 1, 'num_gpus': 0.0}
+INFO :      Flower VCE: Creating VirtualClientEngineActorPool with 16 actors
+INFO :      [INIT]
+INFO :      Requesting initial parameters from one random client
+INFO :      Received initial parameters from one random client
+INFO :      Starting evaluation of initial global parameters
+INFO :      Evaluation returned no results (`None`)
+INFO :      
+INFO :      [ROUND 1]
+INFO :      configure_fit: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33572) WARNING :   DEPRECATED FEATURE: `client_fn` now expects a signature `def client_fn(context: Context)`.The provided `client_fn` has signature: {'cid': <Parameter "cid">}. You can import the `Context` like this: `from flwr.common import Context`
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)             This is a deprecated feature. It will be removed
+(ClientAppActor pid=33572)             entirely in future versions of Flower.
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33572) WARNING :   Deprecation Warning: The `client_fn` function must return an instance of `Client`, but an instance of `NumpyClient` was returned. Please use `NumPyClient.to_client()` method to convert it to `Client`.
+(ClientAppActor pid=33572) WARNING :   DEPRECATED FEATURE: `client_fn` now expects a signature `def client_fn(context: Context)`.The provided `client_fn` has signature: {'cid': <Parameter "cid">}. You can import the `Context` like this: `from flwr.common import Context`
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)             This is a deprecated feature. It will be removed
+(ClientAppActor pid=33572)             entirely in future versions of Flower.
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33572) WARNING :   Deprecation Warning: The `client_fn` function must return an instance of `Client`, but an instance of `NumpyClient` was returned. Please use `NumPyClient.to_client()` method to convert it to `Client`.
+(ClientAppActor pid=33572) C:\Users\sidha\Downloads\FedML_P\.venv\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+(ClientAppActor pid=33572)   warnings.warn(
+(ClientAppActor pid=33572) C:\Users\sidha\Downloads\FedML_P\.venv\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+(ClientAppActor pid=33572)   warnings.warn(
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33540) WARNING :   DEPRECATED FEATURE: `client_fn` now expects a signature `def client_fn(context: Context)`.The provided `client_fn` has signature: {'cid': <Parameter "cid">}. You can import the `Context` like this: `from flwr.common import Context`
+(ClientAppActor pid=33540)             This is a deprecated feature. It will be removed
+(ClientAppActor pid=33540)             entirely in future versions of Flower.
+(ClientAppActor pid=33540) WARNING :   Deprecation Warning: The `client_fn` function must return an instance of `Client`, but an instance of `NumpyClient` was returned. Please use `NumPyClient.to_client()` method to convert it to `Client`.
+(ClientAppActor pid=33592) WARNING :   DEPRECATED FEATURE: `client_fn` now expects a signature `def client_fn(context: Context)`.The provided `client_fn` has signature: {'cid': <Parameter "cid">}. You can import the `Context` like this: `from flwr.common import Context`
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33592)             This is a deprecated feature. It will be removed
+(ClientAppActor pid=33592)             entirely in future versions of Flower.
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33592) WARNING :   Deprecation Warning: The `client_fn` function must return an instance of `Client`, but an instance of `NumpyClient` was returned. Please use `NumPyClient.to_client()` method to convert it to `Client`.
+(ClientAppActor pid=33540) C:\Users\sidha\Downloads\FedML_P\.venv\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+(ClientAppActor pid=33540)   warnings.warn(
+(ClientAppActor pid=33540) C:\Users\sidha\Downloads\FedML_P\.venv\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case.
+(ClientAppActor pid=33540)   warnings.warn(
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+INFO :      aggregate_fit: received 5 results and 0 failures
+WARNING :   No fit_metrics_aggregation_fn provided
+[Server] Round 1 mean bias: nan
+C:\Users\sidha\Downloads\FedML_P\.venv\lib\site-packages\torch\nn\modules\loss.py:610: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([1, 1])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.mse_loss(input, target, reduction=self.reduction)
+[Server] λ-policy loss: nan; λ=nan
+INFO :      configure_evaluate: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+INFO :      aggregate_evaluate: received 5 results and 0 failures
+WARNING :   No evaluate_metrics_aggregation_fn provided
+INFO :
+INFO :      [ROUND 2]
+INFO :      configure_fit: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33572) WARNING :   DEPRECATED FEATURE: `client_fn` now expects a signature `def client_fn(context: Context)`.The provided `client_fn` has signature: {'cid': <Parameter "cid">}. You can import the `Context` like this: `from flwr.common import Context` [repeated 12x across cluster] (Ray deduplicates logs by default. Set RAY_DEDUP_LOGS=0 to disable log deduplication, or see https://docs.ray.io/en/master/ray-observability/user-guides/configure-logging.html#log-deduplication for more options.)
+(ClientAppActor pid=33572)             This is a deprecated feature. It will be removed [repeated 12x across cluster]
+(ClientAppActor pid=33572)             entirely in future versions of Flower. [repeated 12x across cluster]
+(ClientAppActor pid=33572) WARNING :   Deprecation Warning: The `client_fn` function must return an instance of `Client`, but an instance of `NumpyClient` was returned. Please use `NumPyClient.to_client()` method to convert it to `Client`. [repeated 12x across cluster]
+(ClientAppActor pid=33572) C:\Users\sidha\Downloads\FedML_P\.venv\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case. [repeated 16x across cluster]
+(ClientAppActor pid=33572)   warnings.warn( [repeated 16x across cluster]
+INFO :      aggregate_fit: received 5 results and 0 failures
+[Server] Round 2 mean bias: nan
+[Server] λ-policy loss: nan; λ=nan
+INFO :      configure_evaluate: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+INFO :      aggregate_evaluate: received 5 results and 0 failures
+INFO :      
+INFO :      [ROUND 3]
+INFO :      configure_fit: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+INFO :      aggregate_fit: received 5 results and 0 failures
+[Server] Round 3 mean bias: nan
+[Server] λ-policy loss: nan; λ=nan
+INFO :      configure_evaluate: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33572) WARNING :   DEPRECATED FEATURE: `client_fn` now expects a signature `def client_fn(context: Context)`.The provided `client_fn` has signature: {'cid': <Parameter "cid">}. You can import the `Context` like this: `from flwr.common import Context` [repeated 15x across cluster]
+(ClientAppActor pid=33572)             This is a deprecated feature. It will be removed [repeated 15x across cluster]
+(ClientAppActor pid=33572)             entirely in future versions of Flower. [repeated 15x across cluster]
+(ClientAppActor pid=33572) WARNING :   Deprecation Warning: The `client_fn` function must return an instance of `Client`, but an instance of `NumpyClient` was returned. Please use `NumPyClient.to_client()` method to convert it to `Client`. [repeated 15x across cluster]
+INFO :      aggregate_evaluate: received 5 results and 0 failures
+INFO :      
+INFO :      [ROUND 4]
+INFO :      configure_fit: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33572) C:\Users\sidha\Downloads\FedML_P\.venv\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case. [repeated 10x across cluster]
+(ClientAppActor pid=33572)   warnings.warn( [repeated 10x across cluster]
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+INFO :      aggregate_fit: received 5 results and 0 failures
+[Server] Round 4 mean bias: nan
+[Server] λ-policy loss: nan; λ=nan
+INFO :      configure_evaluate: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+INFO :      aggregate_evaluate: received 5 results and 0 failures
+INFO :      
+INFO :      [ROUND 5]
+INFO :      configure_fit: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+INFO :      aggregate_fit: received 5 results and 0 failures
+[Server] Round 5 mean bias: nan
+[Server] λ-policy loss: nan; λ=nan
+INFO :      configure_evaluate: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33572) WARNING :   DEPRECATED FEATURE: `client_fn` now expects a signature `def client_fn(context: Context)`.The provided `client_fn` has signature: {'cid': <Parameter "cid">}. You can import the `Context` like this: `from flwr.common import Context` [repeated 16x across cluster]
+(ClientAppActor pid=33572)             This is a deprecated feature. It will be removed [repeated 16x across cluster]
+(ClientAppActor pid=33572)             entirely in future versions of Flower. [repeated 16x across cluster]
+(ClientAppActor pid=33572) WARNING :   Deprecation Warning: The `client_fn` function must return an instance of `Client`, but an instance of `NumpyClient` was returned. Please use `NumPyClient.to_client()` method to convert it to `Client`. [repeated 16x across cluster]
+(ClientAppActor pid=33592) C:\Users\sidha\Downloads\FedML_P\.venv\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case. [repeated 20x across cluster]
+(ClientAppActor pid=33592)   warnings.warn( [repeated 20x across cluster]
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+INFO :      aggregate_evaluate: received 5 results and 0 failures
+INFO :      
+INFO :      [ROUND 6]
+INFO :      configure_fit: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+INFO :      aggregate_fit: received 5 results and 0 failures
+[Server] Round 6 mean bias: nan
+[Server] λ-policy loss: nan; λ=nan
+INFO :      configure_evaluate: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+INFO :      aggregate_evaluate: received 5 results and 0 failures
+INFO :      
+INFO :      [ROUND 7]
+INFO :      configure_fit: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+(ClientAppActor pid=33600) WARNING :   DEPRECATED FEATURE: `client_fn` now expects a signature `def client_fn(context: Context)`.The provided `client_fn` has signature: {'cid': <Parameter "cid">}. You can import the `Context` like this: `from flwr.common import Context` [repeated 19x across cluster]
+(ClientAppActor pid=33600)             This is a deprecated feature. It will be removed [repeated 19x across cluster]
+(ClientAppActor pid=33600)             entirely in future versions of Flower. [repeated 19x across cluster]
+(ClientAppActor pid=33600) WARNING :   Deprecation Warning: The `client_fn` function must return an instance of `Client`, but an instance of `NumpyClient` was returned. Please use `NumPyClient.to_client()` method to convert it to `Client`. [repeated 19x across cluster]
+(ClientAppActor pid=33572) C:\Users\sidha\Downloads\FedML_P\.venv\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case. [repeated 16x across cluster]
+(ClientAppActor pid=33572)   warnings.warn( [repeated 16x across cluster]
+INFO :      aggregate_fit: received 5 results and 0 failures
+[Server] Round 7 mean bias: nan
+[Server] λ-policy loss: nan; λ=nan
+INFO :      configure_evaluate: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+INFO :      aggregate_evaluate: received 5 results and 0 failures
+INFO :      
+INFO :      [ROUND 8]
+INFO :      configure_fit: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+INFO :      aggregate_fit: received 5 results and 0 failures
+[Server] Round 8 mean bias: nan
+[Server] λ-policy loss: nan; λ=nan
+INFO :      configure_evaluate: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33572) WARNING :   DEPRECATED FEATURE: `client_fn` now expects a signature `def client_fn(context: Context)`.The provided `client_fn` has signature: {'cid': <Parameter "cid">}. You can import the `Context` like this: `from flwr.common import Context` [repeated 15x across cluster]
+(ClientAppActor pid=33572)             This is a deprecated feature. It will be removed [repeated 15x across cluster]
+(ClientAppActor pid=33572)             entirely in future versions of Flower. [repeated 15x across cluster]
+(ClientAppActor pid=33572) WARNING :   Deprecation Warning: The `client_fn` function must return an instance of `Client`, but an instance of `NumpyClient` was returned. Please use `NumPyClient.to_client()` method to convert it to `Client`. [repeated 15x across cluster]
+(ClientAppActor pid=33600) C:\Users\sidha\Downloads\FedML_P\.venv\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case. [repeated 14x across cluster]
+(ClientAppActor pid=33600)   warnings.warn( [repeated 14x across cluster]
+INFO :      aggregate_evaluate: received 5 results and 0 failures
+INFO :      
+INFO :      [ROUND 9]
+INFO :      configure_fit: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+INFO :      aggregate_fit: received 5 results and 0 failures
+[Server] Round 9 mean bias: nan
+[Server] λ-policy loss: nan; λ=nan
+INFO :      configure_evaluate: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33540)
+INFO :      aggregate_evaluate: received 5 results and 0 failures
+INFO :      
+INFO :      [ROUND 10]
+INFO :      configure_fit: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+INFO :      aggregate_fit: received 5 results and 0 failures
+[Server] Round 10 mean bias: nan
+[Server] λ-policy loss: nan; λ=nan
+INFO :      configure_evaluate: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33436) WARNING :   DEPRECATED FEATURE: `client_fn` now expects a signature `def client_fn(context: Context)`.The provided `client_fn` has signature: {'cid': <Parameter "cid">}. You can import the `Context` like this: `from flwr.common import Context` [repeated 16x across cluster]
+(ClientAppActor pid=33436)             This is a deprecated feature. It will be removed [repeated 16x across cluster]
+(ClientAppActor pid=33436)             entirely in future versions of Flower. [repeated 16x across cluster]
+(ClientAppActor pid=33436) WARNING :   Deprecation Warning: The `client_fn` function must return an instance of `Client`, but an instance of `NumpyClient` was returned. Please use `NumPyClient.to_client()` method to convert it to `Client`. [repeated 16x across cluster]
+(ClientAppActor pid=33436) C:\Users\sidha\Downloads\FedML_P\.venv\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case. [repeated 20x across cluster]
+(ClientAppActor pid=33436)   warnings.warn( [repeated 20x across cluster]
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+INFO :      aggregate_evaluate: received 5 results and 0 failures
+INFO :      
+INFO :      [ROUND 11]
+INFO :      configure_fit: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+INFO :      aggregate_fit: received 5 results and 0 failures
+[Server] Round 11 mean bias: nan
+[Server] λ-policy loss: nan; λ=nan
+INFO :      configure_evaluate: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+INFO :      aggregate_evaluate: received 5 results and 0 failures
+INFO :      
+INFO :      [ROUND 12]
+INFO :      configure_fit: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+(ClientAppActor pid=33600) WARNING :   DEPRECATED FEATURE: `client_fn` now expects a signature `def client_fn(context: Context)`.The provided `client_fn` has signature: {'cid': <Parameter "cid">}. You can import the `Context` like this: `from flwr.common import Context` [repeated 19x across cluster]
+(ClientAppActor pid=33600)             This is a deprecated feature. It will be removed [repeated 19x across cluster]
+(ClientAppActor pid=33600)             entirely in future versions of Flower. [repeated 19x across cluster]
+(ClientAppActor pid=33600) WARNING :   Deprecation Warning: The `client_fn` function must return an instance of `Client`, but an instance of `NumpyClient` was returned. Please use `NumPyClient.to_client()` method to convert it to `Client`. [repeated 19x across cluster]
+(ClientAppActor pid=33600) C:\Users\sidha\Downloads\FedML_P\.venv\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case. [repeated 18x across cluster]
+(ClientAppActor pid=33600)   warnings.warn( [repeated 18x across cluster]
+INFO :      aggregate_fit: received 5 results and 0 failures
+[Server] Round 12 mean bias: nan
+[Server] λ-policy loss: nan; λ=nan
+INFO :      configure_evaluate: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+INFO :      aggregate_evaluate: received 5 results and 0 failures
+INFO :      
+INFO :      [ROUND 13]
+INFO :      configure_fit: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+INFO :      aggregate_fit: received 5 results and 0 failures
+[Server] Round 13 mean bias: nan
+[Server] λ-policy loss: nan; λ=nan
+INFO :      configure_evaluate: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+INFO :      aggregate_evaluate: received 5 results and 0 failures
+INFO :      
+INFO :      [ROUND 14]
+INFO :      configure_fit: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33436) WARNING :   DEPRECATED FEATURE: `client_fn` now expects a signature `def client_fn(context: Context)`.The provided `client_fn` has signature: {'cid': <Parameter "cid">}. You can import the `Context` like this: `from flwr.common import Context` [repeated 16x across cluster]
+(ClientAppActor pid=33436)             This is a deprecated feature. It will be removed [repeated 16x across cluster]
+(ClientAppActor pid=33436)             entirely in future versions of Flower. [repeated 16x across cluster]
+(ClientAppActor pid=33436) WARNING :   Deprecation Warning: The `client_fn` function must return an instance of `Client`, but an instance of `NumpyClient` was returned. Please use `NumPyClient.to_client()` method to convert it to `Client`. [repeated 16x across cluster]
+(ClientAppActor pid=33600) C:\Users\sidha\Downloads\FedML_P\.venv\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case. [repeated 12x across cluster]
+(ClientAppActor pid=33600)   warnings.warn( [repeated 12x across cluster]
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+INFO :      aggregate_fit: received 5 results and 0 failures
+[Server] Round 14 mean bias: nan
+[Server] λ-policy loss: nan; λ=nan
+INFO :      configure_evaluate: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+INFO :      aggregate_evaluate: received 5 results and 0 failures
+INFO :      
+INFO :      [ROUND 15]
+INFO :      configure_fit: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+INFO :      aggregate_fit: received 5 results and 0 failures
+[Server] Round 15 mean bias: nan
+[Server] λ-policy loss: nan; λ=nan
+INFO :      configure_evaluate: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+(ClientAppActor pid=33600) WARNING :   DEPRECATED FEATURE: `client_fn` now expects a signature `def client_fn(context: Context)`.The provided `client_fn` has signature: {'cid': <Parameter "cid">}. You can import the `Context` like this: `from flwr.common import Context` [repeated 16x across cluster]
+(ClientAppActor pid=33600)             This is a deprecated feature. It will be removed [repeated 16x across cluster]
+(ClientAppActor pid=33600)             entirely in future versions of Flower. [repeated 16x across cluster]
+(ClientAppActor pid=33600) WARNING :   Deprecation Warning: The `client_fn` function must return an instance of `Client`, but an instance of `NumpyClient` was returned. Please use `NumPyClient.to_client()` method to convert it to `Client`. [repeated 16x across cluster]
+(ClientAppActor pid=33436) C:\Users\sidha\Downloads\FedML_P\.venv\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case. [repeated 20x across cluster]
+(ClientAppActor pid=33436)   warnings.warn( [repeated 20x across cluster]
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+INFO :      aggregate_evaluate: received 5 results and 0 failures
+INFO :      
+INFO :      [ROUND 16]
+INFO :      configure_fit: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+INFO :      aggregate_fit: received 5 results and 0 failures
+[Server] Round 16 mean bias: nan
+[Server] λ-policy loss: nan; λ=nan
+INFO :      configure_evaluate: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+INFO :      aggregate_evaluate: received 5 results and 0 failures
+INFO :      
+INFO :      [ROUND 17]
+INFO :      configure_fit: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33600)
+(ClientAppActor pid=33600)
+INFO :      aggregate_fit: received 5 results and 0 failures
+[Server] Round 17 mean bias: nan
+[Server] λ-policy loss: nan; λ=nan
+INFO :      configure_evaluate: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33436) WARNING :   DEPRECATED FEATURE: `client_fn` now expects a signature `def client_fn(context: Context)`.The provided `client_fn` has signature: {'cid': <Parameter "cid">}. You can import the `Context` like this: `from flwr.common import Context` [repeated 19x across cluster]
+(ClientAppActor pid=33436)             This is a deprecated feature. It will be removed [repeated 19x across cluster]
+(ClientAppActor pid=33436)             entirely in future versions of Flower. [repeated 19x across cluster]
+(ClientAppActor pid=33436) WARNING :   Deprecation Warning: The `client_fn` function must return an instance of `Client`, but an instance of `NumpyClient` was returned. Please use `NumPyClient.to_client()` method to convert it to `Client`. [repeated 19x across cluster]
+(ClientAppActor pid=33436) C:\Users\sidha\Downloads\FedML_P\.venv\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case. [repeated 20x across cluster]
+(ClientAppActor pid=33436)   warnings.warn( [repeated 20x across cluster]
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+INFO :      aggregate_evaluate: received 5 results and 0 failures
+INFO :      
+INFO :      [ROUND 18]
+INFO :      configure_fit: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+INFO :      aggregate_fit: received 5 results and 0 failures
+[Server] Round 18 mean bias: nan
+[Server] λ-policy loss: nan; λ=nan
+INFO :      configure_evaluate: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+INFO :      aggregate_evaluate: received 5 results and 0 failures
+INFO :      
+INFO :      [ROUND 19]
+INFO :      configure_fit: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33540) WARNING :   DEPRECATED FEATURE: `client_fn` now expects a signature `def client_fn(context: Context)`.The provided `client_fn` has signature: {'cid': <Parameter "cid">}. You can import the `Context` like this: `from flwr.common import Context` [repeated 19x across cluster]
+(ClientAppActor pid=33540)             This is a deprecated feature. It will be removed [repeated 19x across cluster]
+(ClientAppActor pid=33540)             entirely in future versions of Flower. [repeated 19x across cluster]
+(ClientAppActor pid=33540) WARNING :   Deprecation Warning: The `client_fn` function must return an instance of `Client`, but an instance of `NumpyClient` was returned. Please use `NumPyClient.to_client()` method to convert it to `Client`. [repeated 19x across cluster]
+(ClientAppActor pid=33540) C:\Users\sidha\Downloads\FedML_P\.venv\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case. [repeated 20x across cluster]
+(ClientAppActor pid=33540)   warnings.warn( [repeated 20x across cluster]
+INFO :      aggregate_fit: received 5 results and 0 failures
+[Server] Round 19 mean bias: nan
+[Server] λ-policy loss: nan; λ=nan
+INFO :      configure_evaluate: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+INFO :      aggregate_evaluate: received 5 results and 0 failures
+INFO :      
+INFO :      [ROUND 20]
+INFO :      configure_fit: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33436) 
+(ClientAppActor pid=33436)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+INFO :      aggregate_fit: received 5 results and 0 failures
+[Server] Round 20 mean bias: nan
+[Server] λ-policy loss: nan; λ=nan
+INFO :      configure_evaluate: strategy sampled 5 clients (out of 5)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+(ClientAppActor pid=33600) 
+(ClientAppActor pid=33600)
+(ClientAppActor pid=33592) 
+(ClientAppActor pid=33592)
+(ClientAppActor pid=33572) 
+(ClientAppActor pid=33572)
+(ClientAppActor pid=33540) 
+(ClientAppActor pid=33540)
+INFO :      aggregate_evaluate: received 5 results and 0 failures
+INFO :      
+INFO :      [SUMMARY]
+INFO :      Run finished 20 round(s) in 80.73s
+INFO :          History (loss, distributed):
+INFO :                  round 1: 0.5971860728263855
+INFO :                  round 2: 0.4595660030841827
+INFO :                  round 3: 0.374136360168457
+INFO :                  round 4: 0.3617985668182373
+INFO :                  round 5: 0.3591162315607071
+INFO :                  round 6: 0.3568236327171326
+INFO :                  round 7: 0.3548830133676529
+INFO :                  round 8: 0.3527691420316696
+INFO :                  round 9: 0.3507145974636078
+INFO :                  round 10: 0.348537442445755
+INFO :                  round 11: 0.3466212464570999
+INFO :                  round 12: 0.34437216591835024
+INFO :                  round 13: 0.34238678205013273
+INFO :                  round 14: 0.3404311783313751
+INFO :                  round 15: 0.3391211732625961
+INFO :                  round 16: 0.33642962634563445
+INFO :                  round 17: 0.33443447172641755
+INFO :                  round 18: 0.3326080222129822
+INFO :                  round 19: 0.3311394896507263
+INFO :                  round 20: 0.32887618732452395
+INFO :
+(ClientAppActor pid=33540) WARNING :   DEPRECATED FEATURE: `client_fn` now expects a signature `def client_fn(context: Context)`.The provided `client_fn` has signature: {'cid': <Parameter "cid">}. You can import the `Context` like this: `from flwr.common import Context` [repeated 15x across cluster]
+(ClientAppActor pid=33540)             This is a deprecated feature. It will be removed [repeated 15x across cluster]
+(ClientAppActor pid=33540)             entirely in future versions of Flower. [repeated 15x across cluster]
+(ClientAppActor pid=33540) WARNING :   Deprecation Warning: The `client_fn` function must return an instance of `Client`, but an instance of `NumpyClient` was returned. Please use `NumPyClient.to_client()` method to convert it to `Client`. [repeated 15x across cluster]
+(ClientAppActor pid=33540) C:\Users\sidha\Downloads\FedML_P\.venv\lib\site-packages\sklearn\metrics\_ranking.py:424: UndefinedMetricWarning: Only one class is present in y_true. ROC AUC score is not defined in that case. [repeated 10x across cluster]
+(ClientAppActor pid=33540)   warnings.warn( [repeated 10x across cluster]

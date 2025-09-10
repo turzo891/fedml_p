@@ -51,8 +51,17 @@ class BiasTracker:
         # Group 1 (disadvantaged)
         idx1 = groups != self.group_label
 
-        auc0 = roc_auc_score(trues[idx0], preds[idx0])
-        auc1 = roc_auc_score(trues[idx1], preds[idx1])
+        def safe_auc(y_true, y_score):
+            try:
+                # Need at least one positive and one negative
+                if len(np.unique(y_true)) < 2:
+                    return 0.5
+                return roc_auc_score(y_true, y_score)
+            except Exception:
+                return 0.5
+
+        auc0 = safe_auc(trues[idx0], preds[idx0])
+        auc1 = safe_auc(trues[idx1], preds[idx1])
 
         bias = abs(auc0 - auc1)
         return bias

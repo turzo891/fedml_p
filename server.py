@@ -22,6 +22,8 @@ class FedServer(fl.server.strategy.FedAvg):
         self.optimizer = torch.optim.Adam(self.policy.parameters(), lr=1e-3)
         self.loss_fn = torch.nn.MSELoss()
         self.bias_tracker = BiasTracker()
+        # Value to broadcast to clients in next round via on_fit_config_fn
+        self.current_lambda: float = 1.0
 
     # ---- 5️⃣1  After aggregation hook -----
     def aggregate_fit(self, server_round, results, failures):
@@ -43,6 +45,8 @@ class FedServer(fl.server.strategy.FedAvg):
                 except Exception:
                     pass
 
+        # Drop NaNs if any
+        bias_scores = [b for b in bias_scores if b == b]  # b==b filters out NaN
         if bias_scores:
             mean_bias = float(np.mean(bias_scores))
             print(f"[Server] Round {server_round} mean bias: {mean_bias:.4f}")
@@ -51,14 +55,16 @@ class FedServer(fl.server.strategy.FedAvg):
             target = torch.tensor([0.0], device=self.device, dtype=torch.float32)  # perfect fairness
             input_bias = torch.tensor([mean_bias], device=self.device, dtype=torch.float32)
             self.policy.to(self.device)
-            pred_lambda = self.policy(input_bias)
+            pred_lambda = self.policy(input_bias).view(-1)
             loss = self.loss_fn(pred_lambda, target)
 
             self.optimizer.zero_grad()
             loss.backward()
             self.optimizer.step()
 
-            print(f"[Server] λ-policy loss: {loss.item():.6f}")
+            # Store scalar lambda (CPU) for broadcasting in next round
+            self.current_lambda = float(pred_lambda.detach().cpu().item())
+            print(f"[Server] λ-policy loss: {loss.item():.6f}; λ={self.current_lambda:.4f}")
         else:
             print(f"[Server] Round {server_round} received no bias metrics")
 
